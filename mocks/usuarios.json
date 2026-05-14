@@ -1,0 +1,75 @@
+{
+  "usuarios": [
+    {
+      "_id": "student-1",
+      "nome": "Gabriela Não Sei Das Quantas",
+      "email": "gabriela.naoseidasquantas@aluno.unb.br",
+      "papeis": ["student"],
+      "unidade": "Ciência da Computação",
+      "semestre": "6º semestre",
+      "interesses": ["Extensão", "Dados", "Educação"],
+      "bio": "Estudante de Ciência da Computação interessada em projetos de impacto social, análise de dados e desenvolvimento de produtos digitais para a comunidade acadêmica.",
+      "criadoEm": "2026-03-01T00:00:00Z",
+      "ativo": true
+    },
+    {
+      "_id": "prof-2",
+      "nome": "Prof. Carlos Mendes",
+      "email": "carlos.mendes@unb.br",
+      "papeis": ["professor"],
+      "unidade": "unidade de Ciência da Computação",
+      "interesses": ["Extensão", "Inclusão", "Dados", "Tecnologia educacional"],
+      "bio": "Docente com atuação em projetos de extensão e inclusão digital, com foco em formação tecnológica para a comunidade.",
+      "criadoEm": "2026-03-02T00:00:00Z",
+      "ativo": true
+    },
+    {
+      "_id": "student-2",
+      "nome": "Lucas Pereira",
+      "email": "lucas.pereira@aluno.unb.br",
+      "papeis": ["student"],
+      "unidade": "Ciência da Computação",
+      "semestre": "4º semestre",
+      "interesses": ["Extensão", "Inclusão", "Tecnologia educacional"],
+      "bio": "Interesse em oficinas e ações de inclusão digital com foco em impacto social.",
+      "criadoEm": "2026-03-03T00:00:00Z",
+      "ativo": true
+    },
+    {
+      "_id": "student-3",
+      "nome": "Ana Clara Souza",
+      "email": "ana.clara@aluno.unb.br",
+      "papeis": ["student"],
+      "unidade": "Engenharia de Software",
+      "semestre": "7º semestre",
+      "interesses": ["Dados", "Educação", "Painéis", "Análise de indicadores"],
+      "bio": "Atua com análise de dados acadêmicos e construção de painéis para gestão educacional.",
+      "criadoEm": "2026-03-04T00:00:00Z",
+      "ativo": true
+    },
+    {
+      "_id": "student-4",
+      "nome": "Rafael Lima",
+      "email": "rafael.lima@aluno.unb.br",
+      "papeis": ["student"],
+      "unidade": "Sistemas de Informação",
+      "semestre": "3º semestre",
+      "interesses": ["Acolhimento", "Mentoria", "Extensão"],
+      "bio": "Quer participar de projetos de acolhimento e mentoria para estudantes ingressantes.",
+      "criadoEm": "2026-03-05T00:00:00Z",
+      "ativo": true
+    },
+    {
+      "_id": "student-5",
+      "nome": "Beatriz Alves",
+      "email": "beatriz.alves@aluno.unb.br",
+      "papeis": ["student"],
+      "unidade": "Comunicação Organizacional",
+      "semestre": "5º semestre",
+      "interesses": ["Divulgação", "Design", "Ciência Aberta"],
+      "bio": "Interesse em comunicação científica e design de materiais para ações universitárias.",
+      "criadoEm": "2026-03-06T00:00:00Z",
+      "ativo": true
+    }
+  ]
+}

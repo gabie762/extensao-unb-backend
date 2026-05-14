@@ -1,0 +1,63 @@
+HELP.md
+IMPORT_GUIDE.md
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### Configurações locais possíveis ###
+.env.local
+.env.*.local
+application-*.properties
+application-*.yml
+application-*.yaml
+!application.properties
+docker-compose.override.yml
+compose.override.yml
+
+
+###Arquivos de SO ###
+.DS_Store
+Thumbs.db
+desktop.ini
+
+### Logs e Temporarios ###
+*.log
+*.swp
+*~
+.history/
+
+### Arquivos do Maven ###
+.mvn/wrapper/.preinstalled-wrapper-path
+dependency-reduced-pom.xml
+
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+.env
