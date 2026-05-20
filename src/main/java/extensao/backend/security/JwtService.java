@@ -15,7 +15,7 @@ import io.jsonwebtoken.security.Keys;
 @Service
 public class JwtService {
 
-    @Value("${JWT_SECRET}")
+    @Value("${jwt.secret}")
     private String secretKey;
     
     private long tempoExpiracao = 86400000;
