@@ -1,37 +1,41 @@
-package extensao.backend.entity;
+package extensao.backend.dto.projetos;
 
 import java.util.List;
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
-
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Document(collection = "projetos")
 @Getter
 @Setter
-@NoArgsConstructor
-public class Projeto {
-
-    @Id
-    private String id;
+public class ProjetoRequestDTO {
+    @NotBlank
     private String titulo;
+
+    @NotBlank
     private String area;
+
+    @NotBlank
     private String unidadeResponsavel;
+
+    @NotBlank
     private String resumo;
+
+    @NotBlank
     private String coordenador;
+
     private String cronograma;
+
     private List<String> tags;
+
     private String status;
+
     private Integer quantidadeParticipantes;
-    private ProximoEvento proximoEvento;
+
+    private ProximoEventoDTO proximoEvento;
 
     @Getter
     @Setter
-    public static class ProximoEvento{
+    public static class ProximoEventoDTO {
         private String titulo;
         private String dataInicio;
     }
