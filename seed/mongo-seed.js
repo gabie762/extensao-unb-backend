@@ -92,72 +92,72 @@ const usuarios = [
 const projetos = [
   {
     _id: 'proj-1',
-    title: 'Plataforma de monitoria com IA para disciplinas iniciais',
+    titulo: 'Plataforma de monitoria com IA para disciplinas iniciais',
     area: 'Ciências Exatas e da Terra',
     unidadeResponsavel: 'Departamento de Ciência da Computação (CIC)',
-    summary: 'Projeto para apoiar estudantes em Cálculo e Programação com trilhas de estudo, revisão automática e acompanhamento de progresso.',
-    mentor: 'Prof. Ana Paula',
-    schedule: 'Inscrições até 18/03',
+    resumo: 'Projeto para apoiar estudantes em Cálculo e Programação com trilhas de estudo, revisão automática e acompanhamento de progresso.',
+    coordenador: 'Prof. Ana Paula',
+    cronograma: 'Inscrições até 18/03',
     tags: ['IA', 'Ensino', 'Web App'],
     status: 'aberto',
-    participantsCount: 12,
-    nextEvent: { title: 'Workshop de revisão de Cálculo', startAt: '2026-03-12T10:00:00Z' }
+    quantidadeParticipantes: 12,
+    proximoEvento: { titulo: 'Workshop de revisão de Cálculo', inicioEm: '2026-03-12T10:00:00Z' }
   },
   {
     _id: 'proj-2',
-    title: 'Mapa de oportunidades acadêmicas e extensão universitária',
+    titulo: 'Mapa de oportunidades acadêmicas e extensão universitária',
     area: 'Ciências Sociais Aplicadas',
     unidadeResponsavel: 'Faculdade de Administração, Contabilidade, Economia e Gestão Pública (FACE)',
-    summary: 'Centraliza bolsas, extensão, eventos e iniciativas estudantis para facilitar o acesso dos alunos a projetos ativos no campus.',
-    mentor: 'PET Computação',
-    schedule: 'Encontro quinta, 14h',
+    resumo: 'Centraliza bolsas, extensão, eventos e iniciativas estudantis para facilitar o acesso dos alunos a projetos ativos no campus.',
+    coordenador: 'PET Computação',
+    cronograma: 'Encontro quinta, 14h',
     tags: ['Extensão', 'Dados', 'Impacto social'],
     status: 'aberto',
-    participantsCount: 18,
-    nextEvent: { title: 'Plantão de orientação', startAt: '2026-03-14T15:30:00Z' }
+    quantidadeParticipantes: 18,
+    proximoEvento: { titulo: 'Plantão de orientação', inicioEm: '2026-03-14T15:30:00Z' }
   },
   {
     _id: 'proj-3',
-    title: 'Laboratório de UX para serviços digitais da universidade',
+    titulo: 'Laboratório de UX para serviços digitais da universidade',
     area: 'Linguística, Letras e Artes',
     unidadeResponsavel: 'Faculdade de Comunicação (FAC)',
-    summary: 'Grupo multidisciplinar focado em melhorar sistemas internos da universidade com pesquisa com usuários, prototipação e validação.',
-    mentor: 'Lab de Inovação',
-    schedule: 'Vagas abertas',
+    resumo: 'Grupo multidisciplinar focado em melhorar sistemas internos da universidade com pesquisa com usuários, prototipação e validação.',
+    coordenador: 'Lab de Inovação',
+    cronograma: 'Vagas abertas',
     tags: ['UX', 'Pesquisa', 'Protótipos'],
     status: 'aberto',
-    participantsCount: 9,
-    nextEvent: { title: 'Sessão de teste com usuários', startAt: '2026-03-18T09:00:00Z' }
+    quantidadeParticipantes: 9,
+    proximoEvento: { titulo: 'Sessão de teste com usuários', inicioEm: '2026-03-18T09:00:00Z' }
   }
 ];
 
 const eventos = [
   {
     _id: 'event-1',
-    projectId: 'proj-1',
-    title: 'Workshop de iniciação científica',
-    startAt: '2026-03-12T10:00:00Z',
-    endAt: '2026-03-12T12:00:00Z',
-    location: 'Auditório da Faculdade',
-    type: 'workshop'
+    projetoId: 'proj-1',
+    titulo: 'Workshop de iniciação científica',
+    inicioEm: '2026-03-12T10:00:00Z',
+    fimEm: '2026-03-12T12:00:00Z',
+    local: 'Auditório da Faculdade',
+    tipo: 'workshop'
   },
   {
     _id: 'event-2',
-    projectId: 'proj-2',
-    title: 'Plantão de projetos de extensão',
-    startAt: '2026-03-14T15:30:00Z',
-    endAt: '2026-03-14T17:00:00Z',
-    location: 'Sala 204 - Bloco B',
-    type: 'plantao'
+    projetoId: 'proj-2',
+    titulo: 'Plantão de projetos de extensão',
+    inicioEm: '2026-03-14T15:30:00Z',
+    fimEm: '2026-03-14T17:00:00Z',
+    local: 'Sala 204 - Bloco B',
+    tipo: 'plantao'
   },
   {
     _id: 'event-3',
-    projectId: 'proj-3',
-    title: 'Feira de grupos estudantis',
-    startAt: '2026-03-18T09:00:00Z',
-    endAt: '2026-03-18T13:00:00Z',
-    location: 'Praça Central do Campus',
-    type: 'feira'
+    projetoId: 'proj-3',
+    titulo: 'Feira de grupos estudantis',
+    inicioEm: '2026-03-18T09:00:00Z',
+    fimEm: '2026-03-18T13:00:00Z',
+    local: 'Praça Central do Campus',
+    tipo: 'feira'
   }
 ];
 
@@ -190,14 +190,14 @@ const oportunidades = [
     local: 'Campus Darcy Ribeiro',
     cargaHoraria: '12h semanais',
     status: 'aberta',
-    createdAt: '2026-03-01T00:00:00Z',
-    updatedAt: '2026-03-01T00:00:00Z',
+    criadoEm: '2026-03-01T00:00:00Z',
+    atualizadoEm: '2026-03-01T00:00:00Z',
     projeto: {
       _id: 'proj-1',
       titulo: 'Observatório de dados para permanência estudantil',
       area: 'Ciências Humanas',
       unidadeResponsavel: 'Faculdade de Educação (FE)',
-      summary: 'Projeto voltado ao uso de dados para melhorar políticas de acompanhamento estudantil.',
+      resumo: 'Projeto voltado ao uso de dados para melhorar políticas de acompanhamento estudantil.',
       tags: ['Dados', 'Educação'],
       status: 'aberto',
       vagas: 2
@@ -231,14 +231,14 @@ const oportunidades = [
     local: 'Ceilândia e atividades híbridas',
     cargaHoraria: '8h semanais',
     status: 'aberta',
-    createdAt: '2026-03-05T00:00:00Z',
-    updatedAt: '2026-03-05T00:00:00Z',
+    criadoEm: '2026-03-05T00:00:00Z',
+    atualizadoEm: '2026-03-05T00:00:00Z',
     projeto: {
       _id: 'proj-2',
       titulo: 'Conecta Comunidade',
       area: 'Ciências Sociais Aplicadas',
       unidadeResponsavel: 'Departamento de Ciência da Computação (CIC)',
-      summary: 'Iniciativa que promove letramento digital em escolas e centros comunitários do DF.',
+      resumo: 'Iniciativa que promove letramento digital em escolas e centros comunitários do DF.',
       tags: ['Extensão', 'Inclusão'],
       status: 'aberto',
       vagas: 6
@@ -272,14 +272,14 @@ const oportunidades = [
     local: 'Instituto Central de Ciências',
     cargaHoraria: '10h semanais',
     status: 'aberta',
-    createdAt: '2026-03-08T00:00:00Z',
-    updatedAt: '2026-03-08T00:00:00Z',
+    criadoEm: '2026-03-08T00:00:00Z',
+    atualizadoEm: '2026-03-08T00:00:00Z',
     projeto: {
       _id: 'proj-3',
       titulo: 'LabMídia Ciência Aberta',
       area: 'Linguística, Letras e Artes',
       unidadeResponsavel: 'Faculdade de Comunicação (FAC)',
-      summary: 'Projeto dedicado à divulgação científica acessível para diferentes públicos.',
+      resumo: 'Projeto dedicado à divulgação científica acessível para diferentes públicos.',
       tags: ['Design', 'Divulgação'],
       status: 'aberto',
       vagas: 1
@@ -313,14 +313,14 @@ const oportunidades = [
     local: 'Campus Gama',
     cargaHoraria: '6h semanais',
     status: 'aberta',
-    createdAt: '2026-03-10T00:00:00Z',
-    updatedAt: '2026-03-10T00:00:00Z',
+    criadoEm: '2026-03-10T00:00:00Z',
+    atualizadoEm: '2026-03-10T00:00:00Z',
     projeto: {
       _id: 'proj-4',
       titulo: 'Rede de acolhimento estudantil',
       area: 'Ciências Humanas',
       unidadeResponsavel: 'Decanato de Assuntos Comunitários (DAC)',
-      summary: 'Programa de apoio e integração para novos estudantes da universidade.',
+      resumo: 'Programa de apoio e integração para novos estudantes da universidade.',
       tags: ['Acolhimento', 'Mentoria'],
       status: 'aberto',
       vagas: 10
@@ -341,7 +341,7 @@ db.oportunidades.insertMany(oportunidades);
 db.usuarios.createIndex({ email: 1 }, { unique: true });
 db.projetos.createIndex({ tags: 1 });
 db.projetos.createIndex({ status: 1 });
-db.eventos.createIndex({ projectId: 1, startAt: 1 });
+db.eventos.createIndex({ projetoId: 1, inicioEm: 1 });
 db.oportunidades.createIndex({ projetoId: 1, tipo: 1 });
 db.oportunidades.createIndex({ projetoId: 1, status: 1 });
 
