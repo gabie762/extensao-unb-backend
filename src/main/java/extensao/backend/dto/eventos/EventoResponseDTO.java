@@ -1,19 +1,12 @@
-package extensao.backend.entity;
+package extensao.backend.dto.eventos;
 
 import java.time.Instant;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Document(collection = "eventos")
 @Getter
 @Setter
-@NoArgsConstructor
-public class Evento {
-
-    @Id
+public class EventoResponseDTO {
     private String id;
     private String projetoId;
     private String titulo;
