@@ -338,7 +338,6 @@ db.projetos.insertMany(projetos);
 db.eventos.insertMany(eventos);
 db.oportunidades.insertMany(oportunidades);
 
-db.usuarios.createIndex({ email: 1 }, { unique: true });
 db.projetos.createIndex({ tags: 1 });
 db.projetos.createIndex({ status: 1 });
 db.eventos.createIndex({ projetoId: 1, inicioEm: 1 });
