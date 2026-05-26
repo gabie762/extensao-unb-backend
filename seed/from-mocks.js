@@ -29,51 +29,46 @@ function normalizeData() {
   const oportunidadesRaw = readJson('oportunidades.json');
 
   const usuarios = Array.isArray(usuariosRaw.usuarios) ? usuariosRaw.usuarios : [];
-  const projetosFromHome = Array.isArray(home.projects) ? home.projects : [];
-  const eventosFromHome = Array.isArray(home.events) ? home.events : [];
-  const oportunidadesFromRaw = Array.isArray(oportunidadesRaw.opportunities) ? oportunidadesRaw.opportunities : [];
+  const projetosFromHome = Array.isArray(home.projetos) ? home.projetos : [];
+  const eventosFromHome = Array.isArray(home.eventos) ? home.eventos : [];
+  const oportunidadesFromRaw = Array.isArray(oportunidadesRaw.oportunidades) ? oportunidadesRaw.oportunidades : [];
 
   const projetosFromHomeNormalizados = projetosFromHome.map((proj) => ({
     _id: proj._id || proj.id,
-    titulo: proj.titulo || proj.title,
+    titulo: proj.titulo,
     area: proj.area,
     unidadeResponsavel: proj.unidadeResponsavel,
-    resumo: proj.resumo || proj.summary,
-    coordenador: proj.coordenador || proj.mentor,
-    cronograma: proj.cronograma || proj.schedule,
+    resumo: proj.resumo,
+    coordenador: proj.coordenador,
+    cronograma: proj.cronograma,
     tags: proj.tags || [],
     status: proj.status,
-    quantidadeParticipantes: proj.quantidadeParticipantes ?? proj.participantsCount,
-    proximoEvento: proj.proximoEvento || (proj.nextEvent
-      ? {
-          titulo: proj.nextEvent.titulo || proj.nextEvent.title,
-          inicioEm: proj.nextEvent.inicioEm || proj.nextEvent.startAt
-        }
-      : undefined)
+    quantidadeParticipantes: proj.quantidadeParticipantes,
+    proximoEvento: proj.proximoEvento
   }));
 
   const eventos = eventosFromHome.map((evento) => ({
     _id: evento._id || evento.id,
-    projetoId: evento.projetoId || evento.projectId,
-    titulo: evento.titulo || evento.title,
-    inicioEm: evento.inicioEm || evento.startAt,
-    fimEm: evento.fimEm || evento.endAt,
-    local: evento.local || evento.location,
-    tipo: evento.tipo || evento.type
+    projetoId: evento.projetoId,
+    titulo: evento.titulo,
+    inicioEm: evento.inicioEm,
+    fimEm: evento.fimEm,
+    local: evento.local,
+    tipo: evento.tipo
   }));
 
   const oportunidades = oportunidadesFromRaw.map((oportunidade) => {
-    const { createdAt, updatedAt, projeto, ...rest } = oportunidade;
+    const { projeto, ...rest } = oportunidade;
 
     return {
       ...rest,
-      criadoEm: oportunidade.criadoEm || createdAt,
-      atualizadoEm: oportunidade.atualizadoEm || updatedAt,
+      criadoEm: oportunidade.criadoEm,
+      atualizadoEm: oportunidade.atualizadoEm,
       projeto: projeto
         ? {
             ...projeto,
-            titulo: projeto.titulo || projeto.title,
-            resumo: projeto.resumo || projeto.summary
+            titulo: projeto.titulo,
+            resumo: projeto.resumo
           }
         : projeto
     };
@@ -84,11 +79,11 @@ function normalizeData() {
     .filter(Boolean)
     .map((proj) => ({
       _id: proj._id || proj.id,
-      titulo: proj.titulo || proj.title,
+      titulo: proj.titulo,
       area: proj.area,
       unidadeResponsavel: proj.unidadeResponsavel,
-      resumo: proj.resumo || proj.summary || proj.descricao,
-      coordenador: proj.coordenador || proj.mentor,
+      resumo: proj.resumo,
+      coordenador: proj.coordenador,
       tags: proj.tags || [],
       status: proj.status,
       vagas: proj.vagas

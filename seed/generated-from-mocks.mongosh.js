@@ -39,7 +39,7 @@ const usuarios = [
     "papeis": [
       "professor"
     ],
-    "unidade": "unidade de Ciência da Computação",
+    "unidade": "Departamento de Ciência da Computação",
     "interesses": [
       "Extensão",
       "Inclusão",
@@ -268,14 +268,13 @@ const oportunidades = [
       "titulo": "Observatório de dados para permanência estudantil",
       "area": "Ciências Humanas",
       "unidadeResponsavel": "Faculdade de Educação (FE)",
-      "summary": "Projeto voltado ao uso de dados para melhorar políticas de acompanhamento estudantil.",
+      "resumo": "Projeto voltado ao uso de dados para melhorar políticas de acompanhamento estudantil.",
       "tags": [
         "Dados",
         "Educação"
       ],
       "status": "aberto",
-      "vagas": 2,
-      "resumo": "Projeto voltado ao uso de dados para melhorar políticas de acompanhamento estudantil."
+      "vagas": 2
     }
   },
   {
@@ -317,14 +316,13 @@ const oportunidades = [
       "titulo": "Conecta Comunidade",
       "area": "Ciências Sociais Aplicadas",
       "unidadeResponsavel": "Departamento de Ciência da Computação (CIC)",
-      "summary": "Iniciativa que promove letramento digital em escolas e centros comunitários do DF.",
+      "resumo": "Iniciativa que promove letramento digital em escolas e centros comunitários do DF.",
       "tags": [
         "Extensão",
         "Inclusão"
       ],
       "status": "aberto",
-      "vagas": 6,
-      "resumo": "Iniciativa que promove letramento digital em escolas e centros comunitários do DF."
+      "vagas": 6
     }
   },
   {
@@ -366,14 +364,13 @@ const oportunidades = [
       "titulo": "LabMídia Ciência Aberta",
       "area": "Linguística, Letras e Artes",
       "unidadeResponsavel": "Faculdade de Comunicação (FAC)",
-      "summary": "Projeto dedicado à divulgação científica acessível para diferentes públicos.",
+      "resumo": "Projeto dedicado à divulgação científica acessível para diferentes públicos.",
       "tags": [
         "Design",
         "Divulgação"
       ],
       "status": "aberto",
-      "vagas": 1,
-      "resumo": "Projeto dedicado à divulgação científica acessível para diferentes públicos."
+      "vagas": 1
     }
   },
   {
@@ -415,14 +412,13 @@ const oportunidades = [
       "titulo": "Rede de acolhimento estudantil",
       "area": "Ciências Humanas",
       "unidadeResponsavel": "Decanato de Assuntos Comunitários (DAC)",
-      "summary": "Programa de apoio e integração para novos estudantes da universidade.",
+      "resumo": "Programa de apoio e integração para novos estudantes da universidade.",
       "tags": [
         "Acolhimento",
         "Mentoria"
       ],
       "status": "aberto",
-      "vagas": 10,
-      "resumo": "Programa de apoio e integração para novos estudantes da universidade."
+      "vagas": 10
     }
   }
 ];
