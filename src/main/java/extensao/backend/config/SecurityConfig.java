@@ -36,6 +36,8 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**").permitAll()
                                                 .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
+                                                .requestMatchers(HttpMethod.GET, "/oportunidades/**").permitAll()
+                                                .requestMatchers(HttpMethod.GET, "/eventos/**").permitAll()
                                                 .anyRequest().authenticated())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
