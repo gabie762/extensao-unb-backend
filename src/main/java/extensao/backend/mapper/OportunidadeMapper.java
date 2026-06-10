@@ -17,6 +17,7 @@ public class OportunidadeMapper {
         oportunidade.setComoParticipar(dto.getComoParticipar());
         oportunidade.setCertificado(dto.isCertificado());
         oportunidade.setRequisitos(dto.getRequisitos());
+        oportunidade.setQtdeVagas(dto.getQtdeVagas());
         oportunidade.setPrazoInscricao(dto.getPrazoInscricao());
         oportunidade.setTipo(dto.getTipo());
         oportunidade.setLocal(dto.getLocal());
@@ -37,6 +38,7 @@ public class OportunidadeMapper {
         dto.setComoParticipar(oportunidade.getComoParticipar());
         dto.setCertificado(oportunidade.isCertificado());
         dto.setRequisitos(oportunidade.getRequisitos());
+        dto.setQtdeVagas(oportunidade.getQtdeVagas());
         dto.setPrazoInscricao(oportunidade.getPrazoInscricao());
         dto.setTipo(oportunidade.getTipo());
         dto.setLocal(oportunidade.getLocal());

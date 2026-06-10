@@ -27,6 +27,7 @@ public class Oportunidade {
     private List<String> comoParticipar;
     private boolean certificado;
     private List<String> requisitos;
+    private Integer qtdeVagas;
     private String prazoInscricao;
     private String tipo; // ex: "bolsa", "voluntariado"
     private String local;
