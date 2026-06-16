@@ -11,7 +11,6 @@ import lombok.Setter;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -36,7 +35,6 @@ public class Usuario implements UserDetails{
 
     @NotBlank
     @Email
-    @Indexed(unique = true)
     private String email;
 
     @Size(min = 1)

@@ -14,6 +14,8 @@ public class UsuarioResponseDTO {
     private String email;
     private List<String> papeis;
     private String unidade;
+    private String departamento;
+    private String role;
     private String semestre;
     private List<String> interesses;
     private String bio;

@@ -17,14 +17,13 @@ try {
 
 const usuarios = [
   {
-    _id: 'student-1',
-    nome: 'Gabriela Não Sei Das Quantas',
-    email: 'gabriela.naoseidasquantas@aluno.unb.br',
-    papeis: ['student'],
-    unidade: 'Ciência da Computação',
-    semestre: '6º semestre',
-    interesses: ['Extensão', 'Dados', 'Educação'],
-    bio: 'Estudante de Ciência da Computação interessada em projetos de impacto social, análise de dados e desenvolvimento de produtos digitais para a comunidade acadêmica.',
+    _id: 'prof-1',
+    nome: 'Prof. Ana Paula',
+    email: 'ana.paula@unb.br',
+    papeis: ['professor'],
+    unidade: 'Departamento de Ciência da Computação',
+    interesses: ['IA', 'Educação'],
+    bio: 'Docente com foco em Inteligência Artificial aplicada ao ensino.',
     criadoEm: new Date('2026-03-01T00:00:00Z'),
     ativo: true
   },
@@ -37,6 +36,40 @@ const usuarios = [
     interesses: ['Extensão', 'Inclusão', 'Dados', 'Tecnologia educacional'],
     bio: 'Docente com atuação em projetos de extensão e inclusão digital, com foco em formação tecnológica para a comunidade.',
     criadoEm: new Date('2026-03-02T00:00:00Z'),
+    ativo: true
+  },
+  {
+    _id: 'prof-3',
+    nome: 'Lab de Inovação',
+    email: 'lab.inovacao@unb.br',
+    papeis: ['professor'],
+    unidade: 'Faculdade de Comunicação',
+    interesses: ['UX', 'Design'],
+    bio: 'Laboratório focado em inovação e experiência do usuário.',
+    criadoEm: new Date('2026-03-03T00:00:00Z'),
+    ativo: true
+  },
+  {
+    _id: 'prof-4',
+    nome: 'PET Computação',
+    email: 'pet.comp@unb.br',
+    papeis: ['professor'],
+    unidade: 'Departamento de Ciência da Computação',
+    interesses: ['Extensão', 'Comunidade'],
+    bio: 'Programa de Educação Tutorial da Computação.',
+    criadoEm: new Date('2026-03-04T00:00:00Z'),
+    ativo: true
+  },
+  {
+    _id: 'student-1',
+    nome: 'Gabriela Não Sei Das Quantas',
+    email: 'gabriela.naoseidasquantas@aluno.unb.br',
+    papeis: ['student'],
+    unidade: 'Ciência da Computação',
+    semestre: '6º semestre',
+    interesses: ['Extensão', 'Dados', 'Educação'],
+    bio: 'Estudante de Ciência da Computação interessada em projetos de impacto social, análise de dados e desenvolvimento de produtos digitais para a comunidade acadêmica.',
+    criadoEm: new Date('2026-03-01T00:00:00Z'),
     ativo: true
   },
   {
@@ -96,11 +129,12 @@ const projetos = [
     area: 'Ciências Exatas e da Terra',
     unidadeResponsavel: 'Departamento de Ciência da Computação (CIC)',
     resumo: 'Projeto para apoiar estudantes em Cálculo e Programação com trilhas de estudo, revisão automática e acompanhamento de progresso.',
-    coordenador: 'Prof. Ana Paula',
+    coordenadorId: 'prof-1',
+    coordenador: usuarios[0],
     cronograma: 'Inscrições até 18/03',
     tags: ['IA', 'Ensino', 'Web App'],
     status: 'aberto',
-    quantidadeParticipantes: 12,
+    vagas: 12,
     proximoEvento: { titulo: 'Workshop de revisão de Cálculo', inicioEm: '2026-03-12T10:00:00Z' }
   },
   {
@@ -109,11 +143,12 @@ const projetos = [
     area: 'Ciências Sociais Aplicadas',
     unidadeResponsavel: 'Faculdade de Administração, Contabilidade, Economia e Gestão Pública (FACE)',
     resumo: 'Centraliza bolsas, extensão, eventos e iniciativas estudantis para facilitar o acesso dos alunos a projetos ativos no campus.',
-    coordenador: 'PET Computação',
+    coordenadorId: 'prof-4',
+    coordenador: usuarios[3],
     cronograma: 'Encontro quinta, 14h',
     tags: ['Extensão', 'Dados', 'Impacto social'],
     status: 'aberto',
-    quantidadeParticipantes: 18,
+    vagas: 18,
     proximoEvento: { titulo: 'Plantão de orientação', inicioEm: '2026-03-14T15:30:00Z' }
   },
   {
@@ -122,11 +157,12 @@ const projetos = [
     area: 'Linguística, Letras e Artes',
     unidadeResponsavel: 'Faculdade de Comunicação (FAC)',
     resumo: 'Grupo multidisciplinar focado em melhorar sistemas internos da universidade com pesquisa com usuários, prototipação e validação.',
-    coordenador: 'Lab de Inovação',
+    coordenadorId: 'prof-3',
+    coordenador: usuarios[2],
     cronograma: 'Vagas abertas',
     tags: ['UX', 'Pesquisa', 'Protótipos'],
     status: 'aberto',
-    quantidadeParticipantes: 9,
+    vagas: 9,
     proximoEvento: { titulo: 'Sessão de teste com usuários', inicioEm: '2026-03-18T09:00:00Z' }
   }
 ];
@@ -200,7 +236,8 @@ const oportunidades = [
       resumo: 'Projeto voltado ao uso de dados para melhorar políticas de acompanhamento estudantil.',
       tags: ['Dados', 'Educação'],
       status: 'aberto',
-      vagas: 2
+      vagas: 2,
+      coordenador: usuarios[0]
     }
   },
   {
@@ -241,7 +278,8 @@ const oportunidades = [
       resumo: 'Iniciativa que promove letramento digital em escolas e centros comunitários do DF.',
       tags: ['Extensão', 'Inclusão'],
       status: 'aberto',
-      vagas: 6
+      vagas: 6,
+      coordenador: usuarios[1]
     }
   },
   {
@@ -282,7 +320,8 @@ const oportunidades = [
       resumo: 'Projeto dedicado à divulgação científica acessível para diferentes públicos.',
       tags: ['Design', 'Divulgação'],
       status: 'aberto',
-      vagas: 1
+      vagas: 1,
+      coordenador: usuarios[2]
     }
   },
   {
@@ -323,7 +362,8 @@ const oportunidades = [
       resumo: 'Programa de apoio e integração para novos estudantes da universidade.',
       tags: ['Acolhimento', 'Mentoria'],
       status: 'aberto',
-      vagas: 10
+      vagas: 10,
+      coordenador: usuarios[1]
     }
   }
 ];

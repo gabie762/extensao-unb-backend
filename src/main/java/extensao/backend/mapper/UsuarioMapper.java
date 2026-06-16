@@ -56,6 +56,13 @@ public class UsuarioMapper {
         dto.setEmail(usuario.getEmail());
         dto.setPapeis(usuario.getPapeis());
         dto.setUnidade(usuario.getUnidade());
+        dto.setDepartamento(usuario.getUnidade()); // Alinhado com o frontend
+        
+        // Mapeia o primeiro papel para o campo 'role' esperado pelo frontend
+        if (usuario.getPapeis() != null && !usuario.getPapeis().isEmpty()) {
+            dto.setRole("ROLE_" + usuario.getPapeis().get(0).toUpperCase());
+        }
+
         dto.setSemestre(usuario.getSemestre());
         dto.setInteresses(usuario.getInteresses());
         dto.setBio(usuario.getBio());

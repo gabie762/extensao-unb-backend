@@ -13,11 +13,11 @@ public class ProjetoMapper {
         projeto.setArea(dto.getArea());
         projeto.setUnidadeResponsavel(dto.getUnidadeResponsavel());
         projeto.setResumo(dto.getResumo());
-        projeto.setCoordenador(dto.getCoordenador());
+        projeto.setCoordenadorId(dto.getCoordenador()); // Armazena o ID/Nome enviado no request
         projeto.setCronograma(dto.getCronograma());
         projeto.setTags(dto.getTags());
         projeto.setStatus(dto.getStatus());
-        projeto.setQuantidadeParticipantes(dto.getQuantidadeParticipantes());
+        projeto.setVagas(dto.getVagas());
         
         if (dto.getProximoEvento() != null) {
             Projeto.ProximoEvento evento = new Projeto.ProximoEvento();
@@ -36,11 +36,15 @@ public class ProjetoMapper {
         dto.setArea(projeto.getArea());
         dto.setUnidadeResponsavel(projeto.getUnidadeResponsavel());
         dto.setResumo(projeto.getResumo());
-        dto.setCoordenador(projeto.getCoordenador());
+        
+        if (projeto.getCoordenador() != null) {
+            dto.setCoordenador(UsuarioMapper.toResponse(projeto.getCoordenador()));
+        }
+        
         dto.setCronograma(projeto.getCronograma());
         dto.setTags(projeto.getTags());
         dto.setStatus(projeto.getStatus());
-        dto.setQuantidadeParticipantes(projeto.getQuantidadeParticipantes());
+        dto.setVagas(projeto.getVagas());
         
         if (projeto.getProximoEvento() != null) {
             ProjetoResponseDTO.ProximoEventoDTO eventoDto = new ProjetoResponseDTO.ProximoEventoDTO();
@@ -57,11 +61,11 @@ public class ProjetoMapper {
         if (dto.getArea() != null) projeto.setArea(dto.getArea());
         if (dto.getUnidadeResponsavel() != null) projeto.setUnidadeResponsavel(dto.getUnidadeResponsavel());
         if (dto.getResumo() != null) projeto.setResumo(dto.getResumo());
-        if (dto.getCoordenador() != null) projeto.setCoordenador(dto.getCoordenador());
+        if (dto.getCoordenador() != null) projeto.setCoordenadorId(dto.getCoordenador());
         if (dto.getCronograma() != null) projeto.setCronograma(dto.getCronograma());
         if (dto.getTags() != null) projeto.setTags(dto.getTags());
         if (dto.getStatus() != null) projeto.setStatus(dto.getStatus());
-        if (dto.getQuantidadeParticipantes() != null) projeto.setQuantidadeParticipantes(dto.getQuantidadeParticipantes());
+        if (dto.getVagas() != null) projeto.setVagas(dto.getVagas());
         
         if (dto.getProximoEvento() != null) {
             Projeto.ProximoEvento evento = projeto.getProximoEvento();
