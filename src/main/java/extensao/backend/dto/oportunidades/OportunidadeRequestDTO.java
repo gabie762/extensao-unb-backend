@@ -20,7 +20,7 @@ public class OportunidadeRequestDTO {
     private List<String> comoParticipar;
     private boolean certificado;
     private List<String> requisitos;
-    private Integer qtdeVagas;
+    private Integer vagas;
     private String prazoInscricao;
     private String tipo;
     private String local;

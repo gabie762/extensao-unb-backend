@@ -2,6 +2,7 @@ package extensao.backend.service.impl;
 
 import extensao.backend.entity.Oportunidade;
 import extensao.backend.repository.OportunidadeRepository;
+import extensao.backend.repository.ProjetoRepository;
 import extensao.backend.service.OportunidadeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,9 @@ public class OportunidadeServiceImpl implements OportunidadeService {
 
     @Autowired
     private OportunidadeRepository repository;
+
+    @Autowired
+    private ProjetoRepository projetoRepository;
 
     @Override
     public List<Oportunidade> listarTodas() {
@@ -36,6 +40,12 @@ public class OportunidadeServiceImpl implements OportunidadeService {
         if (oportunidade.getStatus() == null) {
             oportunidade.setStatus("Aberta");
         }
+        
+        if (oportunidade.getProjetoId() != null) {
+            oportunidade.setProjeto(projetoRepository.findById(oportunidade.getProjetoId())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Projeto não encontrado com o ID: " + oportunidade.getProjetoId())));
+        }
+
         return repository.save(oportunidade);
     }
 
@@ -45,6 +55,14 @@ public class OportunidadeServiceImpl implements OportunidadeService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Oportunidade não encontrada"));
         
         oportunidade.setProjetoId(dadosNovos.getProjetoId());
+        
+        if (dadosNovos.getProjetoId() != null) {
+            oportunidade.setProjeto(projetoRepository.findById(dadosNovos.getProjetoId())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Projeto não encontrado com o ID: " + dadosNovos.getProjetoId())));
+        } else {
+            oportunidade.setProjeto(null);
+        }
+
         oportunidade.setTitulo(dadosNovos.getTitulo());
         oportunidade.setDescricao(dadosNovos.getDescricao());
         oportunidade.setSobreProjeto(dadosNovos.getSobreProjeto());
@@ -53,6 +71,7 @@ public class OportunidadeServiceImpl implements OportunidadeService {
         oportunidade.setComoParticipar(dadosNovos.getComoParticipar());
         oportunidade.setCertificado(dadosNovos.isCertificado());
         oportunidade.setRequisitos(dadosNovos.getRequisitos());
+        oportunidade.setVagas(dadosNovos.getVagas());
         oportunidade.setPrazoInscricao(dadosNovos.getPrazoInscricao());
         oportunidade.setTipo(dadosNovos.getTipo());
         oportunidade.setLocal(dadosNovos.getLocal());

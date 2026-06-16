@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,9 @@ public class Oportunidade {
 
     @Id
     private String id;
+    @Indexed
     private String projetoId;
+    private Projeto projeto;    
     private String titulo;
     private String descricao;
     private String sobreProjeto;
@@ -27,7 +30,7 @@ public class Oportunidade {
     private List<String> comoParticipar;
     private boolean certificado;
     private List<String> requisitos;
-    private Integer qtdeVagas;
+    private Integer vagas;
     private String prazoInscricao;
     private String tipo; // ex: "bolsa", "voluntariado"
     private String local;

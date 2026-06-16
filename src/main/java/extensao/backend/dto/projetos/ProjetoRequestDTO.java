@@ -29,7 +29,7 @@ public class ProjetoRequestDTO {
 
     private String status;
 
-    private Integer quantidadeParticipantes;
+    private Integer vagas;
 
     private ProximoEventoDTO proximoEvento;
 
