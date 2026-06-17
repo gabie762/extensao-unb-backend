@@ -10,13 +10,18 @@ import org.springframework.web.server.ResponseStatusException;
 
 import extensao.backend.service.ProjetoService;
 import extensao.backend.entity.Projeto;
+import extensao.backend.entity.Usuario;
 import extensao.backend.repository.ProjetoRepository;
+import extensao.backend.repository.UsuarioRepository;
 
 @Service
 public class ProjetoServiceImpl implements ProjetoService {
     
     @Autowired
     private ProjetoRepository projetoRepository;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     @Override
     public List<Projeto> listarTodos(){
@@ -31,6 +36,13 @@ public class ProjetoServiceImpl implements ProjetoService {
     @Override
     public Projeto criar(Projeto projeto){
         projeto.setStatus("Aberto");
+        
+        if (projeto.getCoordenadorId() != null) {
+            Usuario usuario = usuarioRepository.findById(projeto.getCoordenadorId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário coordenador não encontrado com o ID: " + projeto.getCoordenadorId()));
+            projeto.setCoordenador(usuario);
+        }
+
         return projetoRepository.save(projeto);
     }
 
@@ -43,11 +55,20 @@ public class ProjetoServiceImpl implements ProjetoService {
         projetoExistente.setArea(projeto.getArea());
         projetoExistente.setUnidadeResponsavel(projeto.getUnidadeResponsavel());
         projetoExistente.setResumo(projeto.getResumo());
-        projetoExistente.setCoordenador(projeto.getCoordenador());
+        
+        projetoExistente.setCoordenadorId(projeto.getCoordenadorId());
+        if (projeto.getCoordenadorId() != null) {
+            Usuario usuario = usuarioRepository.findById(projeto.getCoordenadorId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário coordenador não encontrado com o ID: " + projeto.getCoordenadorId()));
+            projetoExistente.setCoordenador(usuario);
+        } else {
+            projetoExistente.setCoordenador(null);
+        }
+
         projetoExistente.setCronograma(projeto.getCronograma());
         projetoExistente.setTags(projeto.getTags());
         projetoExistente.setStatus(projeto.getStatus());
-        projetoExistente.setQuantidadeParticipantes(projeto.getQuantidadeParticipantes());
+        projetoExistente.setVagas(projeto.getVagas());
         projetoExistente.setProximoEvento(projeto.getProximoEvento());
 
         return projetoRepository.save(projetoExistente);

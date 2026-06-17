@@ -17,7 +17,7 @@ public class OportunidadeMapper {
         oportunidade.setComoParticipar(dto.getComoParticipar());
         oportunidade.setCertificado(dto.isCertificado());
         oportunidade.setRequisitos(dto.getRequisitos());
-        oportunidade.setQtdeVagas(dto.getQtdeVagas());
+        oportunidade.setVagas(dto.getVagas());
         oportunidade.setPrazoInscricao(dto.getPrazoInscricao());
         oportunidade.setTipo(dto.getTipo());
         oportunidade.setLocal(dto.getLocal());
@@ -30,6 +30,9 @@ public class OportunidadeMapper {
         OportunidadeResponseDTO dto = new OportunidadeResponseDTO();
         dto.setId(oportunidade.getId());
         dto.setProjetoId(oportunidade.getProjetoId());
+        if (oportunidade.getProjeto() != null) {
+            dto.setProjeto(ProjetoMapper.toResponse(oportunidade.getProjeto()));
+        }
         dto.setTitulo(oportunidade.getTitulo());
         dto.setDescricao(oportunidade.getDescricao());
         dto.setSobreProjeto(oportunidade.getSobreProjeto());
@@ -38,7 +41,7 @@ public class OportunidadeMapper {
         dto.setComoParticipar(oportunidade.getComoParticipar());
         dto.setCertificado(oportunidade.isCertificado());
         dto.setRequisitos(oportunidade.getRequisitos());
-        dto.setQtdeVagas(oportunidade.getQtdeVagas());
+        dto.setVagas(oportunidade.getVagas());
         dto.setPrazoInscricao(oportunidade.getPrazoInscricao());
         dto.setTipo(oportunidade.getTipo());
         dto.setLocal(oportunidade.getLocal());
@@ -59,6 +62,7 @@ public class OportunidadeMapper {
         if (dto.getComoParticipar() != null) oportunidade.setComoParticipar(dto.getComoParticipar());
         oportunidade.setCertificado(dto.isCertificado());
         if (dto.getRequisitos() != null) oportunidade.setRequisitos(dto.getRequisitos());
+        if (dto.getVagas() != null) oportunidade.setVagas(dto.getVagas());
         if (dto.getPrazoInscricao() != null) oportunidade.setPrazoInscricao(dto.getPrazoInscricao());
         if (dto.getTipo() != null) oportunidade.setTipo(dto.getTipo());
         if (dto.getLocal() != null) oportunidade.setLocal(dto.getLocal());
