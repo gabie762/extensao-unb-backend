@@ -32,8 +32,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public Usuario create(Usuario usuario) {
-        String senhaUsuario = this.passwordEncoder.encode(usuario.getSenha());
-        usuario.setSenha(senhaUsuario);
+        if (usuario.getPapeis() == null || usuario.getPapeis().isEmpty()) {
+            usuario.setPapeis(java.util.List.of("Estudante"));
+        }
+        usuario.setSenha(this.passwordEncoder.encode(usuario.getSenha()));
         return this.usuarioRepository.save(usuario);
     }
 
@@ -65,10 +67,14 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public Usuario save(Usuario usuario) {
-        // encoda senha somente se foi fornecida (e não vazia)
-        if (usuario.getSenha() != null && !usuario.getSenha().isBlank()) {
-            usuario.setSenha(this.passwordEncoder.encode(usuario.getSenha()));
-        }
+        return this.usuarioRepository.save(usuario);
+    }
+
+    @Override
+    public Usuario updatePapeis(String id, java.util.List<String> papeis) {
+        Usuario usuario = this.usuarioRepository.findById(id)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado!"));
+        usuario.setPapeis(papeis);
         return this.usuarioRepository.save(usuario);
     }
 

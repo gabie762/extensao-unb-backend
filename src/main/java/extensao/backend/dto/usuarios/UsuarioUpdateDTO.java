@@ -19,8 +19,6 @@ public class UsuarioUpdateDTO {
     @Size(min = 6)
     private String senha;
 
-    private List<String> papeis;
-
     private String unidade;
 
     private String semestre;

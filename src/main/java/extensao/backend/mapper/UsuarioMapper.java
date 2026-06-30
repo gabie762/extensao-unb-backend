@@ -28,7 +28,6 @@ public class UsuarioMapper {
         usuario.setNome(dto.getNome());
         usuario.setEmail(dto.getEmail());
         usuario.setSenha(dto.getSenha());
-        usuario.setPapeis(dto.getPapeis());
         usuario.setUnidade(dto.getUnidade());
         usuario.setSemestre(dto.getSemestre());
         usuario.setInteresses(dto.getInteresses());
@@ -40,13 +39,11 @@ public class UsuarioMapper {
     public static void updateEntityFromDto(UsuarioUpdateDTO dto, Usuario usuario){
         if (dto.getNome() != null && !dto.getNome().isBlank()) usuario.setNome(dto.getNome());
         if (dto.getEmail() != null && !dto.getEmail().isBlank()) usuario.setEmail(dto.getEmail());
-        if (dto.getPapeis() != null && !dto.getPapeis().isEmpty()) usuario.setPapeis(dto.getPapeis());
         if (dto.getUnidade() != null && !dto.getUnidade().isBlank()) usuario.setUnidade(dto.getUnidade());
         if (dto.getSemestre() != null && !dto.getSemestre().isBlank()) usuario.setSemestre(dto.getSemestre());
         if (dto.getInteresses() != null && !dto.getInteresses().isEmpty()) usuario.setInteresses(dto.getInteresses());
         if (dto.getBio() != null && !dto.getBio().isBlank()) usuario.setBio(dto.getBio());
         if (dto.getAtivo() != null) usuario.setAtivo(dto.getAtivo());
-        if (dto.getSenha() != null && !dto.getSenha().isBlank()) usuario.setSenha(dto.getSenha());
     }
 
     public static UsuarioResponseDTO toResponse(Usuario usuario){
