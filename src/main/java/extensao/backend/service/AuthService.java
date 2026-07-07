@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import extensao.backend.dto.auth.CadastroRequestDTO;
 import extensao.backend.dto.auth.LoginRequestDTO;
 import extensao.backend.dto.auth.TokenResponseDTO;
 import extensao.backend.dto.usuarios.UsuarioResponseDTO;
@@ -15,6 +16,7 @@ import extensao.backend.security.JwtService;
 import extensao.backend.security.LoginAttemptService;
 import extensao.backend.repository.UsuarioRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -53,6 +55,35 @@ public class AuthService {
         }
 
         loginAttemptService.registrarSucesso(ip);
+
+        String token = jwtService.generateToken(usuario.getEmail());
+
+        TokenResponseDTO response = new TokenResponseDTO();
+        response.setToken(token);
+        response.setId(usuario.getId());
+        response.setNome(usuario.getNome());
+        response.setEmail(usuario.getEmail());
+        response.setPapeis(usuario.getPapeis());
+
+        return response;
+    }
+
+    public TokenResponseDTO cadastro(CadastroRequestDTO dto) {
+        if (usuarioRepository.findByEmail(dto.getEmail()).isPresent()) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "E-mail já cadastrado");
+        }
+
+        String papel = dto.getRole().equals("ROLE_PROFESSOR") ? "Professor" : "Estudante";
+
+        Usuario usuario = new Usuario();
+        usuario.setNome(dto.getNome());
+        usuario.setEmail(dto.getEmail());
+        usuario.setSenha(passwordEncoder.encode(dto.getSenha()));
+        usuario.setPapeis(List.of(papel));
+        usuario.setAtivo(true);
+        usuario.setUnidade("");
+
+        usuarioRepository.save(usuario);
 
         String token = jwtService.generateToken(usuario.getEmail());
 
