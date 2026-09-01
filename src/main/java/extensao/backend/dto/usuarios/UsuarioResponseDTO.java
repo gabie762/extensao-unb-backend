@@ -21,4 +21,5 @@ public class UsuarioResponseDTO {
     private String bio;
     private Instant criadoEm;
     private boolean ativo;
+    private boolean emailVerificado;
 }

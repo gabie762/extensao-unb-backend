@@ -59,6 +59,7 @@ public class Usuario implements UserDetails{
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String senha;
 
+    private boolean emailVerificado;
 
     public Usuario() {
     }

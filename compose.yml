@@ -20,6 +20,12 @@ services:
     environment:
       ME_CONFIG_MONGODB_URL: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@mongo:27017/?authSource=admin
       ME_CONFIG_BASICAUTH: false
+  mailpit:
+    image: axllent/mailpit:latest
+    restart: unless-stopped
+    ports:
+      - 1025:1025 # SMTP - aponte MAIL_HOST=localhost e MAIL_PORT=1025 no .env
+      - 8025:8025 # UI web para ver os e-mails de verificacao recebidos
 
 volumes:
   mongo:
