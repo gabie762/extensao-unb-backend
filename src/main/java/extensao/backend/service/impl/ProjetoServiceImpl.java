@@ -35,7 +35,7 @@ public class ProjetoServiceImpl implements ProjetoService {
 
     @Override
     public Projeto criar(Projeto projeto){
-        projeto.setStatus("Aberto");
+        projeto.setStatus("aberto");
         
         if (projeto.getCoordenadorId() != null) {
             Usuario usuario = usuarioRepository.findById(projeto.getCoordenadorId())
