@@ -66,7 +66,6 @@ public class ProjetoServiceImpl implements ProjetoService {
         }
 
         projetoExistente.setCronograma(projeto.getCronograma());
-        projetoExistente.setTags(projeto.getTags());
         projetoExistente.setStatus(projeto.getStatus());
         projetoExistente.setVagas(projeto.getVagas());
         projetoExistente.setProximoEvento(projeto.getProximoEvento());

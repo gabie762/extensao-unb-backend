@@ -1,7 +1,5 @@
 package extensao.backend.entity;
 
-import java.util.List;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -27,7 +25,6 @@ public class Projeto {
     private String coordenadorId;
     private Usuario coordenador;
     private String cronograma;
-    private List<String> tags;
     private String status;
     private Integer vagas;
     private ProximoEvento proximoEvento;

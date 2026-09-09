@@ -15,7 +15,6 @@ public class ProjetoMapper {
         projeto.setResumo(dto.getResumo());
         projeto.setCoordenadorId(dto.getCoordenador()); // Armazena o ID/Nome enviado no request
         projeto.setCronograma(dto.getCronograma());
-        projeto.setTags(dto.getTags());
         projeto.setStatus(dto.getStatus());
         projeto.setVagas(dto.getVagas());
         
@@ -42,7 +41,6 @@ public class ProjetoMapper {
         }
         
         dto.setCronograma(projeto.getCronograma());
-        dto.setTags(projeto.getTags());
         dto.setStatus(projeto.getStatus());
         dto.setVagas(projeto.getVagas());
         
@@ -63,7 +61,6 @@ public class ProjetoMapper {
         if (dto.getResumo() != null) projeto.setResumo(dto.getResumo());
         if (dto.getCoordenador() != null) projeto.setCoordenadorId(dto.getCoordenador());
         if (dto.getCronograma() != null) projeto.setCronograma(dto.getCronograma());
-        if (dto.getTags() != null) projeto.setTags(dto.getTags());
         if (dto.getStatus() != null) projeto.setStatus(dto.getStatus());
         if (dto.getVagas() != null) projeto.setVagas(dto.getVagas());
         
