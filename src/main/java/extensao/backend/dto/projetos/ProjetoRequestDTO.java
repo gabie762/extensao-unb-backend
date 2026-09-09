@@ -1,6 +1,5 @@
 package extensao.backend.dto.projetos;
 
-import java.util.List;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,8 +23,6 @@ public class ProjetoRequestDTO {
     private String coordenador;
 
     private String cronograma;
-
-    private List<String> tags;
 
     private String status;
 
