@@ -11,6 +11,7 @@ public interface UsuarioService {
     List<Usuario> listAll();
     Usuario update(String id, Usuario usuario);
     Usuario save(Usuario usuario);
+    Usuario updatePapeis(String id, List<String> papeis);
     void delete(String id);
     Optional<Usuario> findByEmail(String email);
 }

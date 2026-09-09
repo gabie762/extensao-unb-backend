@@ -7,7 +7,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class TokenResponseDTO {
-    
+
     @NotBlank
     private String token;
+
+    private String id;
+    private String nome;
+    private String email;
+    private java.util.List<String> papeis;
 }

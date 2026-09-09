@@ -23,8 +23,6 @@ public class UsuarioCreateDTO {
     @Size(min = 6)
     private String senha;
 
-    private List<String> papeis = new ArrayList<>();
-
     @NotBlank
     private String unidade;
 
