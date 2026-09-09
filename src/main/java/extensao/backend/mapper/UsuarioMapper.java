@@ -65,6 +65,7 @@ public class UsuarioMapper {
         dto.setBio(usuario.getBio());
         dto.setCriadoEm(usuario.getCriadoEm());
         dto.setAtivo(usuario.isAtivo());
+        dto.setEmailVerificado(usuario.isEmailVerificado());
         return dto;
     }
 

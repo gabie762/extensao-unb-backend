@@ -2,6 +2,13 @@
 // Usage:
 // sudo docker compose up -d
 // sudo docker exec -i backend-mongo-1 mongosh -u "$MONGO_USER" -p "$MONGO_PASSWORD" --authenticationDatabase admin < seed/mongo-seed.js
+//
+// Todos os usuarios de teste abaixo usam a mesma senha: senha123456
+// (hash BCrypt pre-gerado, compativel com o PasswordEncoder do backend)
+// Ja nascem com emailVerificado=true, entao dá pra logar direto,
+// sem passar pelo fluxo de verificacao por e-mail.
+
+const SENHA_TESTE_HASH = '$2a$10$seBVrTNCxvyh/3NmO4CYvO5zEnIskfjo8.tw3Ov5oHvlOhGAO/hpu';
 
 const targetDb = 'extensao_unb';
 const db = db.getSiblingDB(targetDb);
@@ -25,7 +32,9 @@ const usuarios = [
     interesses: ['IA', 'Educação'],
     bio: 'Docente com foco em Inteligência Artificial aplicada ao ensino.',
     criadoEm: new Date('2026-03-01T00:00:00Z'),
-    ativo: true
+    ativo: true,
+    senha: SENHA_TESTE_HASH,
+    emailVerificado: true,
   },
   {
     _id: 'prof-2',
@@ -36,7 +45,9 @@ const usuarios = [
     interesses: ['Extensão', 'Inclusão', 'Dados', 'Tecnologia educacional'],
     bio: 'Docente com atuação em projetos de extensão e inclusão digital, com foco em formação tecnológica para a comunidade.',
     criadoEm: new Date('2026-03-02T00:00:00Z'),
-    ativo: true
+    ativo: true,
+    senha: SENHA_TESTE_HASH,
+    emailVerificado: true,
   },
   {
     _id: 'prof-3',
@@ -47,7 +58,9 @@ const usuarios = [
     interesses: ['UX', 'Design'],
     bio: 'Laboratório focado em inovação e experiência do usuário.',
     criadoEm: new Date('2026-03-03T00:00:00Z'),
-    ativo: true
+    ativo: true,
+    senha: SENHA_TESTE_HASH,
+    emailVerificado: true,
   },
   {
     _id: 'prof-4',
@@ -58,7 +71,9 @@ const usuarios = [
     interesses: ['Extensão', 'Comunidade'],
     bio: 'Programa de Educação Tutorial da Computação.',
     criadoEm: new Date('2026-03-04T00:00:00Z'),
-    ativo: true
+    ativo: true,
+    senha: SENHA_TESTE_HASH,
+    emailVerificado: true,
   },
   {
     _id: 'student-1',
@@ -70,7 +85,9 @@ const usuarios = [
     interesses: ['Extensão', 'Dados', 'Educação'],
     bio: 'Estudante de Ciência da Computação interessada em projetos de impacto social, análise de dados e desenvolvimento de produtos digitais para a comunidade acadêmica.',
     criadoEm: new Date('2026-03-01T00:00:00Z'),
-    ativo: true
+    ativo: true,
+    senha: SENHA_TESTE_HASH,
+    emailVerificado: true,
   },
   {
     _id: 'student-2',
@@ -82,7 +99,9 @@ const usuarios = [
     interesses: ['Extensão', 'Inclusão', 'Tecnologia educacional'],
     bio: 'Interesse em oficinas e ações de inclusão digital com foco em impacto social.',
     criadoEm: new Date('2026-03-03T00:00:00Z'),
-    ativo: true
+    ativo: true,
+    senha: SENHA_TESTE_HASH,
+    emailVerificado: true,
   },
   {
     _id: 'student-3',
@@ -94,7 +113,9 @@ const usuarios = [
     interesses: ['Dados', 'Educação', 'Painéis', 'Análise de indicadores'],
     bio: 'Atua com análise de dados acadêmicos e construção de painéis para gestão educacional.',
     criadoEm: new Date('2026-03-04T00:00:00Z'),
-    ativo: true
+    ativo: true,
+    senha: SENHA_TESTE_HASH,
+    emailVerificado: true,
   },
   {
     _id: 'student-4',
@@ -106,7 +127,9 @@ const usuarios = [
     interesses: ['Acolhimento', 'Mentoria', 'Extensão'],
     bio: 'Quer participar de projetos de acolhimento e mentoria para estudantes ingressantes.',
     criadoEm: new Date('2026-03-05T00:00:00Z'),
-    ativo: true
+    ativo: true,
+    senha: SENHA_TESTE_HASH,
+    emailVerificado: true,
   },
   {
     _id: 'student-5',
@@ -118,7 +141,9 @@ const usuarios = [
     interesses: ['Divulgação', 'Design', 'Ciência Aberta'],
     bio: 'Interesse em comunicação científica e design de materiais para ações universitárias.',
     criadoEm: new Date('2026-03-06T00:00:00Z'),
-    ativo: true
+    ativo: true,
+    senha: SENHA_TESTE_HASH,
+    emailVerificado: true,
   }
 ];
 

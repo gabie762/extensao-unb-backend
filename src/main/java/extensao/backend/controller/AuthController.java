@@ -12,8 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import extensao.backend.dto.auth.CadastroRequestDTO;
+import extensao.backend.dto.auth.CadastroResponseDTO;
 import extensao.backend.dto.auth.LoginRequestDTO;
+import extensao.backend.dto.auth.MensagemResponseDTO;
+import extensao.backend.dto.auth.ReenviarVerificacaoRequestDTO;
 import extensao.backend.dto.auth.TokenResponseDTO;
+import extensao.backend.dto.auth.VerificarEmailRequestDTO;
 import extensao.backend.dto.usuarios.UsuarioResponseDTO;
 import extensao.backend.service.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,7 +31,7 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/cadastro")
-    public ResponseEntity<TokenResponseDTO> cadastro(@Valid @RequestBody CadastroRequestDTO dto) {
+    public ResponseEntity<CadastroResponseDTO> cadastro(@Valid @RequestBody CadastroRequestDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(authService.cadastro(dto));
     }
 
@@ -37,6 +41,16 @@ public class AuthController {
             HttpServletRequest request) {
         String ip = resolverIp(request);
         return ResponseEntity.ok(authService.login(requestDTO, ip));
+    }
+
+    @PostMapping("/verificar-email")
+    public ResponseEntity<TokenResponseDTO> verificarEmail(@Valid @RequestBody VerificarEmailRequestDTO dto) {
+        return ResponseEntity.ok(authService.verificarEmail(dto.getToken()));
+    }
+
+    @PostMapping("/reenviar-verificacao")
+    public ResponseEntity<MensagemResponseDTO> reenviarVerificacao(@Valid @RequestBody ReenviarVerificacaoRequestDTO dto) {
+        return ResponseEntity.ok(authService.reenviarVerificacao(dto.getEmail()));
     }
 
     @PreAuthorize("isAuthenticated()")
