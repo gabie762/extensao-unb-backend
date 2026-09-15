@@ -1,9 +1,12 @@
 package extensao.backend.controller;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,6 +33,9 @@ public class ProjetoController {
 
     @Autowired
     private ProjetoService projetoService;
+
+    @Value("${import.api-key}")
+    private String importApiKey;
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping
@@ -62,6 +69,37 @@ public class ProjetoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(respostaDTO);
     }
 
+    /**
+     * Endpoint de importacao em massa, para scripts externos (ex: dados raspados do SIGAA).
+     * Nao usa login: em vez disso, exige o header "X-Import-Key" com o valor configurado
+     * em IMPORT_API_KEY. Ver SecurityConfig - esta rota e liberada do JWT explicitamente.
+     */
+    @PostMapping("/importar")
+    public ResponseEntity<ProjetoResponseDTO> importarProjeto(
+        @RequestHeader(value = "X-Import-Key", required = false) String chaveRecebida,
+        @Valid @RequestBody ProjetoRequestDTO requestDTO
+    ){
+        if (!chaveDeImportacaoValida(chaveRecebida)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        Projeto projetoParaSalvar = ProjetoMapper.toEntity(requestDTO);
+
+        Projeto projetoSalvo = projetoService.criar(projetoParaSalvar);
+
+        ProjetoResponseDTO respostaDTO = ProjetoMapper.toResponse(projetoSalvo);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(respostaDTO);
+    }
+
+    private boolean chaveDeImportacaoValida(String chaveRecebida) {
+        if (importApiKey == null || importApiKey.isBlank() || chaveRecebida == null) {
+            return false;
+        }
+        byte[] esperada = importApiKey.getBytes(StandardCharsets.UTF_8);
+        byte[] recebida = chaveRecebida.getBytes(StandardCharsets.UTF_8);
+        return MessageDigest.isEqual(esperada, recebida);
+    }
 
     @PreAuthorize("hasRole('PROFESSOR') or hasRole('ADMIN')")
     @PutMapping("/{id}")

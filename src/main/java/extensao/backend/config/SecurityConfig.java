@@ -43,6 +43,7 @@ public class SecurityConfig {
                                                 .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
                                                 .requestMatchers(HttpMethod.GET, "/oportunidades/**").permitAll()
                                                 .requestMatchers(HttpMethod.GET, "/eventos/**").permitAll()
+                                                .requestMatchers(HttpMethod.POST, "/projetos/importar").permitAll()
                                                 .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                                                 .anyRequest().authenticated())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
