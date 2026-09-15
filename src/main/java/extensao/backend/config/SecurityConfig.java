@@ -45,6 +45,11 @@ public class SecurityConfig {
                                                 .requestMatchers(HttpMethod.GET, "/eventos/**").permitAll()
                                                 .requestMatchers(HttpMethod.POST, "/projetos/importar").permitAll()
                                                 .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+                                                // Sem isso, uma excecao lancada (ex: ResponseStatusException) num endpoint
+                                                // publico e redirecionada pro Spring pra /error, que caia em anyRequest()
+                                                // .authenticated() e vira 403 vazio em vez do status/mensagem reais
+                                                // (ex: 409 "E-mail ja cadastrado" virava 403 sem corpo nenhum).
+                                                .requestMatchers("/error").permitAll()
                                                 .anyRequest().authenticated())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
