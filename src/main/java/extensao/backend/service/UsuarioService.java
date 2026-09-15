@@ -14,4 +14,12 @@ public interface UsuarioService {
     Usuario updatePapeis(String id, List<String> papeis);
     void delete(String id);
     Optional<Usuario> findByEmail(String email);
+
+    /**
+     * Busca um Professor pelo e-mail; se nao existir, cria uma conta "placeholder"
+     * (sem senha utilizavel, marcada como contaImportada) so para ser o coordenador
+     * de projetos importados. A pessoa pode assumir essa conta depois se cadastrando
+     * normalmente com o mesmo e-mail.
+     */
+    Usuario resolverOuCriarCoordenadorPlaceholder(String nome, String email, String unidade);
 }

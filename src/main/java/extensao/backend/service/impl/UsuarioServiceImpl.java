@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
 
+import java.security.SecureRandom;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -86,6 +88,30 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public Optional<Usuario> findByEmail(String email) {
         return this.usuarioRepository.findByEmail(email);
+    }
+
+    @Override
+    public Usuario resolverOuCriarCoordenadorPlaceholder(String nome, String email, String unidade) {
+        return usuarioRepository.findByEmail(email).orElseGet(() -> {
+            Usuario usuario = new Usuario();
+            usuario.setNome(nome);
+            usuario.setEmail(email);
+            usuario.setUnidade(unidade == null ? "" : unidade);
+            usuario.setPapeis(List.of("Professor"));
+            usuario.setAtivo(true);
+            usuario.setEmailVerificado(false);
+            usuario.setContaImportada(true);
+            // senha aleatoria e inutilizavel: ninguem loga com ela, so serve para
+            // satisfazer a validacao do campo ate a pessoa reivindicar a conta
+            usuario.setSenha(passwordEncoder.encode(gerarSenhaAleatoriaInutilizavel()));
+            return usuarioRepository.save(usuario);
+        });
+    }
+
+    private String gerarSenhaAleatoriaInutilizavel() {
+        byte[] bytes = new byte[24];
+        new SecureRandom().nextBytes(bytes);
+        return Base64.getEncoder().encodeToString(bytes);
     }
 
 }

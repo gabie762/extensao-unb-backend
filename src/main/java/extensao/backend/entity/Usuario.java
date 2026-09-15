@@ -61,6 +61,16 @@ public class Usuario implements UserDetails{
 
     private boolean emailVerificado;
 
+    /**
+     * true quando este usuario foi criado automaticamente por uma importacao
+     * (ex: POST /projetos/importar) para um coordenador que ainda nao tem conta.
+     * Enquanto true, a pessoa pode "reivindicar" a conta se cadastrando normalmente
+     * com o mesmo e-mail (AuthService.cadastro) - isso preenche nome/senha reais
+     * e mantem o mesmo id, entao os projetos ja vinculados continuam apontando
+     * para a conta certa.
+     */
+    private boolean contaImportada;
+
     public Usuario() {
     }
 

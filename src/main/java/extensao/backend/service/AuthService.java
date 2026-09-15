@@ -84,20 +84,28 @@ public class AuthService {
     }
 
     public CadastroResponseDTO cadastro(CadastroRequestDTO dto) {
-        if (usuarioRepository.findByEmail(dto.getEmail()).isPresent()) {
+        Optional<Usuario> existenteOpt = usuarioRepository.findByEmail(dto.getEmail());
+
+        // Conta "placeholder" criada por uma importacao (ver ProjetoController /projetos/importar):
+        // em vez de bloquear, deixa a pessoa reivindicar a conta - preenche nome/senha reais e
+        // mantem o mesmo id, entao projetos ja vinculados a esse coordenador continuam corretos.
+        if (existenteOpt.isPresent() && !existenteOpt.get().isContaImportada()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "E-mail já cadastrado");
         }
 
         String papel = dto.getRole().equals("ROLE_PROFESSOR") ? "Professor" : "Estudante";
 
-        Usuario usuario = new Usuario();
+        Usuario usuario = existenteOpt.orElseGet(Usuario::new);
         usuario.setNome(dto.getNome());
         usuario.setEmail(dto.getEmail());
         usuario.setSenha(passwordEncoder.encode(dto.getSenha()));
         usuario.setPapeis(List.of(papel));
         usuario.setAtivo(true);
-        usuario.setUnidade("");
+        if (usuario.getUnidade() == null) {
+            usuario.setUnidade("");
+        }
         usuario.setEmailVerificado(false);
+        usuario.setContaImportada(false);
 
         usuarioRepository.save(usuario);
 

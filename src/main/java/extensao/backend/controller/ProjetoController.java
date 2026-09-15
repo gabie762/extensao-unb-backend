@@ -20,11 +20,14 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import extensao.backend.dto.projetos.ProjetoImportRequestDTO;
 import extensao.backend.dto.projetos.ProjetoRequestDTO;
 import extensao.backend.dto.projetos.ProjetoResponseDTO;
 import extensao.backend.entity.Projeto;
+import extensao.backend.entity.Usuario;
 import extensao.backend.mapper.ProjetoMapper;
 import extensao.backend.service.ProjetoService;
+import extensao.backend.service.UsuarioService;
 import jakarta.validation.Valid;
 
 @RestController
@@ -33,6 +36,9 @@ public class ProjetoController {
 
     @Autowired
     private ProjetoService projetoService;
+
+    @Autowired
+    private UsuarioService usuarioService;
 
     @Value("${import.api-key}")
     private String importApiKey;
@@ -73,15 +79,37 @@ public class ProjetoController {
      * Endpoint de importacao em massa, para scripts externos (ex: dados raspados do SIGAA).
      * Nao usa login: em vez disso, exige o header "X-Import-Key" com o valor configurado
      * em IMPORT_API_KEY. Ver SecurityConfig - esta rota e liberada do JWT explicitamente.
+     *
+     * Diferente de POST /projetos, nao exige que o coordenador ja tenha uma conta:
+     * basta nome e e-mail. Se ainda nao existir usuario com esse e-mail, uma conta
+     * "placeholder" e criada automaticamente (ver UsuarioService), que o professor
+     * pode reivindicar depois se cadastrando normalmente com o mesmo e-mail.
      */
     @PostMapping("/importar")
     public ResponseEntity<ProjetoResponseDTO> importarProjeto(
         @RequestHeader(value = "X-Import-Key", required = false) String chaveRecebida,
-        @Valid @RequestBody ProjetoRequestDTO requestDTO
+        @Valid @RequestBody ProjetoImportRequestDTO importDTO
     ){
         if (!chaveDeImportacaoValida(chaveRecebida)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
+
+        Usuario coordenador = usuarioService.resolverOuCriarCoordenadorPlaceholder(
+            importDTO.getCoordenadorNome(),
+            importDTO.getCoordenadorEmail(),
+            importDTO.getUnidadeResponsavel()
+        );
+
+        ProjetoRequestDTO requestDTO = new ProjetoRequestDTO();
+        requestDTO.setTitulo(importDTO.getTitulo());
+        requestDTO.setArea(importDTO.getArea());
+        requestDTO.setUnidadeResponsavel(importDTO.getUnidadeResponsavel());
+        requestDTO.setResumo(importDTO.getResumo());
+        requestDTO.setCoordenador(coordenador.getId());
+        requestDTO.setCronograma(importDTO.getCronograma());
+        requestDTO.setStatus(importDTO.getStatus());
+        requestDTO.setVagas(importDTO.getVagas());
+        requestDTO.setProximoEvento(importDTO.getProximoEvento());
 
         Projeto projetoParaSalvar = ProjetoMapper.toEntity(requestDTO);
 
