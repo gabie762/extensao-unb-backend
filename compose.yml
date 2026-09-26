@@ -57,13 +57,34 @@ services:
     ports:
       - 3000:3000
     environment:
-      # Navegador (roda na sua maquina) - precisa do endereco publico.
-      NUXT_PUBLIC_API_BASE: http://localhost:8080
-      # SSR (roda dentro deste container) - precisa do nome do servico, nao "localhost".
+      # Navegador (roda na sua maquina) - passa pelo Caddy, que encaminha /api pro backend.
+      # Sem porta: o Caddy escuta na 80, a porta padrao da web.
+      NUXT_PUBLIC_API_BASE: http://localhost/api
+      # SSR (roda dentro deste container) - fala direto com o backend pela rede interna,
+      # nao precisa passar pelo Caddy (que e so pra trafego vindo de fora).
       NUXT_API_BASE_SERVER: http://backend:8080
     depends_on:
       - backend
 
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      # ":Z" e o "z"/"Z" que o SELinux (padrao no Fedora) exige pra deixar o
+      # container ler um arquivo montado do host - sem isso, da "permission
+      # denied" mesmo com o arquivo com permissao normal (rw-r--r--).
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro,Z
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - backend
+      - frontend
+
 volumes:
   mongo:
     driver: local
+  caddy_data:
+  caddy_config:

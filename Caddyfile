@@ -1,0 +1,21 @@
+# Configuracao do reverse proxy (Caddy).
+#
+# ":80" = "escute em qualquer endereco/dominio, na porta 80". Funciona hoje
+# com IP puro, sem HTTPS (nao ha dominio pra tirar certificado ainda).
+#
+# QUANDO TIVER UM DOMINIO DE VERDADE: troque a linha ":80" abaixo pelo
+# dominio (ex: "extensao.unb.br {"). So isso - o Caddy detecta sozinho e
+# passa a servir HTTPS automatico via Let's Encrypt, sem configuracao extra.
+:80 {
+	# Tudo que comecar com /api/ vai pro backend, com o prefixo "/api"
+	# removido antes de encaminhar (o backend nao conhece esse prefixo -
+	# suas rotas sao /auth/login, /projetos, etc, direto na raiz).
+	handle_path /api/* {
+		reverse_proxy backend:8080
+	}
+
+	# Qualquer outra coisa vai pro frontend.
+	handle {
+		reverse_proxy frontend:3000
+	}
+}
