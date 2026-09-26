@@ -1,0 +1,10 @@
+target/
+.mvn/wrapper/maven-wrapper.jar
+.git/
+.env
+*.log
+HELP.md
+IMPORT_GUIDE.md
+mocks/
+seed/
+.vscode/

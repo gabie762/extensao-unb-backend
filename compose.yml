@@ -10,6 +10,11 @@ services:
       MONGO_INITDB_DATABASE: ${MONGO_DATABASE}
     volumes:
       - mongo:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')", "--quiet"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
   mongo-express:
     image: mongo-express:latest
     restart: unless-stopped
@@ -26,6 +31,24 @@ services:
     ports:
       - 1025:1025 # SMTP - aponte MAIL_HOST=localhost e MAIL_PORT=1025 no .env
       - 8025:8025 # UI web para ver os e-mails de verificacao recebidos
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+    environment:
+      MONGO_USER: ${MONGO_USER}
+      MONGO_PASSWORD: ${MONGO_PASSWORD}
+      MONGO_DATABASE: ${MONGO_DATABASE}
+      MONGO_HOST: mongo
+      MONGO_PORT: 27017
+      JWT_SECRET: ${JWT_SECRET}
+      FRONTEND_URL: ${FRONTEND_URL}
+    depends_on:
+      mongo:
+        condition: service_healthy
 
 volumes:
   mongo:
