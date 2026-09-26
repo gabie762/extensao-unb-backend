@@ -32,6 +32,7 @@ services:
       - 1025:1025 # SMTP - aponte MAIL_HOST=localhost e MAIL_PORT=1025 no .env
       - 8025:8025 # UI web para ver os e-mails de verificacao recebidos
   backend:
+    image: extensao-unb-backend:latest
     build:
       context: .
       dockerfile: Dockerfile
@@ -55,6 +56,7 @@ services:
       mongo:
         condition: service_healthy
   frontend:
+    image: extensao-unb-frontend:latest
     build:
       context: ../../extensao-unb-front
       dockerfile: Dockerfile
