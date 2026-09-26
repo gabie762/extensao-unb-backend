@@ -46,6 +46,11 @@ services:
       MONGO_PORT: 27017
       JWT_SECRET: ${JWT_SECRET}
       FRONTEND_URL: ${FRONTEND_URL}
+      # Sem isso, o backend tenta mandar e-mail de verificacao pra "localhost:587"
+      # (o padrao do application.properties), que dentro DESTE container nao leva
+      # a lugar nenhum - precisa do nome do servico do Mailpit.
+      MAIL_HOST: mailpit
+      MAIL_PORT: 1025
     depends_on:
       mongo:
         condition: service_healthy
