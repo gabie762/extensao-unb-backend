@@ -49,6 +49,20 @@ services:
     depends_on:
       mongo:
         condition: service_healthy
+  frontend:
+    build:
+      context: ../../extensao-unb-front
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    environment:
+      # Navegador (roda na sua maquina) - precisa do endereco publico.
+      NUXT_PUBLIC_API_BASE: http://localhost:8080
+      # SSR (roda dentro deste container) - precisa do nome do servico, nao "localhost".
+      NUXT_API_BASE_SERVER: http://backend:8080
+    depends_on:
+      - backend
 
 volumes:
   mongo:
