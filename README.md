@@ -4,7 +4,7 @@ API REST em Spring Boot (Java 21) para gerenciar projetos, oportunidades e event
 de extensão da UnB. Banco de dados MongoDB.
 
 Este é o repositório do **backend**. O `docker compose` deste repositório sobe o
-sistema inteiro (banco, backend, frontend e um proxy reverso) — veja
+sistema inteiro (banco, backend e frontend) — veja
 [Estrutura de pastas necessária](#estrutura-de-pastas-necessária) antes de rodar.
 
 ## Pré-requisitos
@@ -60,14 +60,12 @@ pronto antes de liberar o próximo:
 | `mongo` | Banco de dados | interno (porta 27017 também publicada, útil pra inspecionar) |
 | `mailpit` | SMTP falso, pra ver e-mails de verificação sem precisar de conta real | http://localhost:8025 |
 | `mongo-express` | UI web pra navegar no banco | http://localhost:8081 |
-| `backend` | Esta API | http://localhost:8080 (direto) |
-| `frontend` | Site (Nuxt) | http://localhost:3000 (direto) |
-| `caddy` | Proxy reverso na frente de tudo | **http://localhost** ← use este pra navegar no site |
+| `backend` | Esta API | http://localhost:8080 |
+| `frontend` | Site (Nuxt) — **use este pra navegar no site** | http://localhost:3000 |
 
-O jeito "de verdade" de acessar o site é via `http://localhost` (porta 80, sem
-especificar porta) — o Caddy encaminha `/api/*` pro backend e o resto pro
-frontend. Os acessos diretos (`:8080`, `:3000`) continuam funcionando, úteis só
-pra debug.
+O navegador só fala com o frontend (`:3000`). Chamadas que o site faz pra API
+(`/api/**`) são repassadas internamente pelo próprio Nuxt pro backend, pela
+rede do Docker — não existe proxy separado nem porta 80 nesse fluxo local.
 
 Pra rodar em segundo plano (sem prender o terminal): `docker compose up --build -d`.
 Pra ver os logs depois: `docker compose logs -f` (ou `docker compose logs -f backend`
@@ -106,9 +104,12 @@ Com o backend no ar: http://localhost:8080/swagger-ui.html
   ainda não ter terminado de negociar — o Mongo recusa com "Unauthorized" e a
   aplicação inteira falha ao subir. Os índices que a aplicação usa já são criados
   manualmente pelo script de seed.
-- **Caddy como proxy reverso**: além de unificar tudo numa porta só (80), quando
-  houver um domínio real, HTTPS fica automático (Let's Encrypt) só trocando
-  `:80` pelo domínio no `Caddyfile` — nenhuma configuração extra de certificado.
+- **Proxy interno no frontend, não um proxy reverso separado**: o navegador só
+  fala com a origem do frontend; uma `routeRule` de proxy no `nuxt.config.ts`
+  repassa `/api/**` pro backend pela rede interna do Docker. Evita CORS e
+  problemas de "mixed content" quando o frontend tem HTTPS e o backend não tem
+  domínio próprio (como no deploy via Coolify, onde só o frontend recebeu um
+  domínio real).
 - **`POST /projetos/importar`**: rota pública (sem login), protegida por um
   header `X-Import-Key` em vez de autenticação normal — pensada pra scripts
   externos importarem projetos em massa sem precisar criar conta pra cada
